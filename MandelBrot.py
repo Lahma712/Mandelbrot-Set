@@ -9,6 +9,8 @@ from kivy.core.window import Window
 from kivy.graphics import Line, InstructionGroup, Color
 import math
 import numpy as np
+import numba as nb
+from functions import mandelbrot, DrawSet
 kivy.require("2.0.0")
 
 class Draw(Widget):
@@ -16,13 +18,12 @@ class Draw(Widget):
 	Height = 500
 	ratio = float(Height/Width)
 	glow = 0
-	offset = 20
-	maxIt = 300
+	offset = 10
+	maxIt = 1000
 	light = 255
 	WWidth = 1000
 	WHeight = 500
 	Window.size = (WWidth, WHeight)
-	array = np.zeros((Height, Width, 3), dtype=np.uint8)
 	check = 1
 	x1 = -2.5
 	x2 = 1.5
@@ -38,7 +39,7 @@ class Draw(Widget):
 			self.ZoomSet = Bg(pos=(self.Width, self.WHeight - self.Height), size= (self.Width, self.Height))
 
 			self.bytes_io = BytesIO()
-			self.DrawSet(self.Width, self.Height, self.x1, 4 , self.y1, 4*self.ratio, self.maxIt, 0, 0, 0, 0, self.light, 0, True, self.array)
+			self.array = DrawSet(self.Width, self.Height, self.x1, 4 , self.y1, 4*self.ratio, self.maxIt, 0, 0, 0, 0, self.light, 0, True, self.offset)
 			
 			self.img = Image.fromarray(np.flipud(self.array), 'HSV')
 			self.img.convert('RGB').save(self.bytes_io, 'PNG')
@@ -59,7 +60,7 @@ class Draw(Widget):
 			self.touchpos = list(touch.pos)
 
 			
-			Color(255,255,255)
+			Color(0,0,0)
 			self.zoomBox = Line(rectangle = (touch.pos[0], touch.pos[1] ,self.WZoom, self.HZoom), width = 1)
 			
 			if touch.pos[0] > self.Width:
@@ -91,9 +92,9 @@ class Draw(Widget):
 			self.yStart =float((((self.touchpos[1]) - (self.WHeight - self.Height))/self.Height) * (abs(self.y1-self.y2)) + self.y1)
 			self.yEnd = float((((self.touchpos[1]+self.HZoom - (self.WHeight - self.Height)))/self.Height) * (abs(self.y1-self.y2)) + self.y1)
 			
-			self.zoomArray = np.zeros((self.Height, self.Width, 3), dtype=np.uint8)
 
-			self.DrawSet(self.Width, self.Height, self.xStart, self.xDist, self.yStart, self.yDist, self.maxIt, 0, 0, 0, 0, self.light, 0, True, self.zoomArray)
+
+			self.zoomArray = DrawSet(self.Width, self.Height, self.xStart, self.xDist, self.yStart, self.yDist, self.maxIt, 0, 0, 0, 0, self.light, 0, True, self.offset)
 				
 			self.bytes_io = BytesIO()
 			self.img = Image.fromarray(np.flipud(self.zoomArray), 'HSV')
@@ -106,32 +107,7 @@ class Draw(Widget):
 				self.ZoomSet.texture = self.ImageByte(self, self.bytes_io.getvalue()).texture
 
 	
-	def mandelbrot(self, c,maxIt): #mandelbrot function
-		z = 0
-		n = 0
-		while abs(z) <= 2 and n < maxIt:
-			z = z * z + c
-			n += 1
-		return n 
-
-
-	def DrawSet(self, W, H, xStart, xDist, yStart, yDist, maxIt, hue, saturation, value, glow, a, b, Qcolor, array):
-		for x in range(0, W):
-			for y in range (0, H):
-				
-				c = complex( (x/W)* xDist +xStart, -((y/H) * yDist + yStart))
-				
-				cIt = self.mandelbrot(c, maxIt)
-				color = int((255 * cIt) / maxIt)
-				
-				if Qcolor == True:
-					if color + self.offset > 255:
-						hue = (color + self.offset) - 255
-					else:
-						hue = color + self.offset
-						saturation = 255 - glow * color
-
-				array[y,x] = (hue, saturation, value if cIt == maxIt else a+b*glow * color)
+	
 				
 				
 	def ImageByte(self, instance, ImageByte):
