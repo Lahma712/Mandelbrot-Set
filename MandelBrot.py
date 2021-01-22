@@ -10,7 +10,8 @@ from kivy.graphics import Line, InstructionGroup, Color
 import math
 import numpy as np
 import numba as nb
-from functions import mandelbrot, DrawSet
+from functions import DrawSet
+import time
 kivy.require("2.0.0")
 
 class Draw(Widget):
@@ -21,14 +22,16 @@ class Draw(Widget):
 	offset = 10
 	maxIt = 1000
 	light = 255
-	WWidth = 1000
-	WHeight = 500
+	WWidth = Width*2
+	WHeight = Height
 	Window.size = (WWidth, WHeight)
 	check = 1
-	x1 = -2.5
-	x2 = 1.5
-	y1 = -(4*ratio)/2
-	y2 = (4*ratio)/2
+	x1 = -2
+	x2 = 2
+	xDist = abs(x2-x1)
+	y1 = -(xDist*ratio)/2
+	y2 = -y1
+	array = np.zeros((Height, Width, 3), dtype=np.uint8)
 
 
 	def __init__(self, **kwargs):
@@ -39,13 +42,15 @@ class Draw(Widget):
 			self.ZoomSet = Bg(pos=(self.Width, self.WHeight - self.Height), size= (self.Width, self.Height))
 
 			self.bytes_io = BytesIO()
-			self.array = DrawSet(self.Width, self.Height, self.x1, 4 , self.y1, 4*self.ratio, self.maxIt, 0, 0, 0, 0, self.light, 0, True, self.offset)
+			self.array = DrawSet(self.Width, self.Height, self.x1, abs(self.x2-self.x1) , self.y1, abs(self.x2-self.x1)*self.ratio, self.maxIt)
 			
 			self.img = Image.fromarray(np.flipud(self.array), 'HSV')
 			self.img.convert('RGB').save(self.bytes_io, 'PNG')
 			self.MainSet.texture = self.ImageByte(self, self.bytes_io.getvalue()).texture
 			
 	def on_touch_down(self, touch):
+
+		#start = time.time()
 
 		with self.canvas:
 
@@ -55,8 +60,8 @@ class Draw(Widget):
 				pass
 
 			
-			self.WZoom = 50
-			self.HZoom = 50
+			self.WZoom = self.Width/10
+			self.HZoom = self.Height/10
 			self.touchpos = list(touch.pos)
 
 			
@@ -94,7 +99,7 @@ class Draw(Widget):
 			
 
 
-			self.zoomArray = DrawSet(self.Width, self.Height, self.xStart, self.xDist, self.yStart, self.yDist, self.maxIt, 0, 0, 0, 0, self.light, 0, True, self.offset)
+			self.zoomArray = DrawSet(self.Width, self.Height, self.xStart, self.xDist, self.yStart, self.yDist, self.maxIt)
 				
 			self.bytes_io = BytesIO()
 			self.img = Image.fromarray(np.flipud(self.zoomArray), 'HSV')
@@ -107,7 +112,8 @@ class Draw(Widget):
 				self.ZoomSet.texture = self.ImageByte(self, self.bytes_io.getvalue()).texture
 
 	
-	
+			#end = time.time()
+			#print(end-start)
 				
 				
 	def ImageByte(self, instance, ImageByte):
