@@ -50,7 +50,7 @@ class Draw(Widget):
 			
 	def on_touch_down(self, touch):
 
-		#start = time.time()
+		
 
 		with self.canvas:
 
@@ -112,8 +112,7 @@ class Draw(Widget):
 				self.ZoomSet.texture = self.ImageByte(self, self.bytes_io.getvalue()).texture
 
 	
-			#end = time.time()
-			#print(end-start)
+			
 				
 				
 	def ImageByte(self, instance, ImageByte):
