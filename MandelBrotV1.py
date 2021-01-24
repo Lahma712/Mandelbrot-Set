@@ -10,31 +10,29 @@ from kivy.graphics import Line, InstructionGroup, Color
 import math
 import numpy as np
 import numba as nb
-from kivy.clock import Clock
 from functions import DrawSet
 import time
 from gradient import polylinear_gradient
 kivy.require("2.0.0")
 
-
 class Draw(Widget):
-	Width = 250
-	Height =250
+	Width = 500
+	Height =500
 	ratio = float(Height/Width)
 	glow = 0
 	offset = 10
 	maxIt = 1000
 	light = 255
-	WWidth = Width
+	WWidth = Width*2
 	WHeight = Height
 	Window.size = (WWidth, WHeight)
 	check = 1
-	xStart = -2
-	xEnd = 2
-	xDist = abs(xEnd-xStart)
-	yStart = -(xDist*ratio)/2
-	yEnd = (xDist*ratio)/2
-	yDist = abs(yEnd-yStart)
+	x1 = -2
+	x2 = 2
+	xDist = x2-x1
+	y1 = -(xDist*ratio)/2
+	y2 = (xDist*ratio)/2
+	yDist = y2-y1
 	array = np.zeros((Height, Width, 3), dtype=np.uint8)
 	gradient = np.array(polylinear_gradient(200, 2000))
 
@@ -43,78 +41,82 @@ class Draw(Widget):
 		super(Draw, self).__init__(**kwargs)
 		with self.canvas:
 
-			self.Zoom = Window.request_keyboard(None, self)
-			self.Zoom.bind(on_key_up = self.ZoomInOut)
-			
 			self.MainSet = Bg(pos=(0, self.WHeight - self.Height), size= (self.Width, self.Height))
-			
+			self.ZoomSet = Bg(pos=(self.Width, self.WHeight - self.Height), size= (self.Width, self.Height))
+
 			self.bytes_io = BytesIO()
-			self.array = DrawSet(self.Width, self.Height, self.xStart, self.xDist , self.yStart, self.yDist, self.maxIt, self.gradient)
+			self.array = DrawSet(self.Width, self.Height, self.x1, self.xDist , self.y1, self.yDist, self.maxIt, self.gradient)
 			
 			self.img = Image.fromarray(np.flipud(self.array), 'RGB')
 			self.img.save(self.bytes_io, 'PNG')
 			self.MainSet.texture = self.ImageByte(self, self.bytes_io.getvalue()).texture
-	
 			
 	def on_touch_move(self, touch):
 
-		self.secondtouch = touch.pos
-		self.array = DrawSet(self.Width, self.Height, self.xStart, self.xDist, self.yStart, self.yDist, self.maxIt, self.gradient)
+
+		with self.canvas:
+
+			try:
+				self.canvas.remove(self.zoomBox)
+			except:
+				pass
+
 			
-		self.bytes_io = BytesIO()
-		self.img = Image.fromarray(np.flipud(self.array), 'RGB')
-		self.img.save(self.bytes_io, 'PNG')
-		self.MainSet.texture = self.ImageByte(self, self.bytes_io.getvalue()).texture
-		
-		self.touch2 = [(self.secondtouch[0]/self.Width)*self.xDist + self.xStart, self.secondtouch[1]/self.Height*self.yDist + self.yStart]
-		self.touch1 = [(self.firsttouch[0]/self.Width)*self.xDist + self.xStart, self.firsttouch[1]/self.Height*self.yDist + self.yStart]
-		self.shift = [self.touch2[0]-self.touch1[0], self.touch2[1]-self.touch1[1]]	
-		self.xStart = (self.xStart - self.shift[0])
-		self.xEnd = (self.xEnd - self.shift[0])
+			self.WZoom = self.Width/10
+			self.HZoom = self.Height/10
+			self.touchpos = list(touch.pos)
 
-		self.yStart = (self.yStart - self.shift[1])
-		self.yEnd = (self.yEnd - self.shift[1])
+			
+			Color(0,0,0)
+			self.zoomBox = Line(rectangle = (touch.pos[0], touch.pos[1] ,self.WZoom, self.HZoom), width = 1)
+			
+			if touch.pos[0] > self.Width:
+				self.touchpos[0] = self.touchpos[0] - self.Width
+				if self.check == 1:
+					
+					self.x1 = self.xStart
+					self.x2 = self.xEnd
+					self.y1 = self.yStart
+					self.y2 = self.yEnd
+					self.check = 0
 
-		self.xDist = (self.xEnd - self.xStart)
-		self.yDist = (self.yEnd - self.yStart)
-		
-		self.firsttouch = self.secondtouch
+					
+			else:
+				if self.check == 0:
+					self.x1 = self.xStart
+					self.x2 = self.xEnd
+					self.y1 = self.yStart
+					self.y2 = self.yEnd
+					self.check = 1
 				
-	def on_touch_down(self, touch):
-		self.firsttouch = touch.pos
 
-	def ZoomInOut(self, window, keycode):
-		
-		if keycode[1] == "w":
-			self.xStart = (self.xStart + self.xDist*0.20)
-			self.xEnd = (self.xEnd - self.xDist*0.20)
+			self.xStart = float((self.touchpos[0]/self.Width) * (abs(self.x1-self.x2)) + self.x1)
+			self.xEnd = float(((self.touchpos[0]+self.WZoom)/self.Width) * (abs(self.x1-self.x2)) + self.x1)
 
-			self.yStart = (self.yStart + self.yDist*0.20)
-			self.yEnd = (self.yEnd - self.yDist*0.20)
+			self.xDist = float(abs(self.xStart - self.xEnd))
+			self.yDist = float(self.xDist * self.ratio) 
+				
+			self.yStart =float((((self.touchpos[1]) - (self.WHeight - self.Height))/self.Height) * (abs(self.y1-self.y2)) + self.y1)
+			self.yEnd = float((((self.touchpos[1]+self.HZoom - (self.WHeight - self.Height)))/self.Height) * (abs(self.y1-self.y2)) + self.y1)
+			
 
-			self.xDist = (self.xEnd - self.xStart)
-			self.yDist = (self.yEnd - self.yStart)
+
+			self.zoomArray = DrawSet(self.Width, self.Height, self.xStart, self.xDist, self.yStart, self.yDist, self.maxIt, self.gradient)
+				
+			self.bytes_io = BytesIO()
+			self.img = Image.fromarray(np.flipud(self.zoomArray), 'RGB')
+			self.img.save(self.bytes_io, 'PNG')
+
+			if touch.pos[0] > self.Width:
+				self.MainSet.texture = self.ImageByte(self, self.bytes_io.getvalue()).texture
+
+			else:
+				self.ZoomSet.texture = self.ImageByte(self, self.bytes_io.getvalue()).texture
 
 	
-		elif keycode[1] == "s":
-			self.xStart = self.xStart - self.xDist*0.20
-			self.xEnd = self.xEnd + self.xDist*0.20
-			self.yStart = self.yStart - self.yDist*0.20
-			self.yEnd = self.yEnd + self.yDist*0.20
-
-			self.xDist = abs(self.xEnd - self.xStart)
-			self.yDist = abs(self.yEnd - self.yStart)
-
-		self.array = DrawSet(self.Width, self.Height, self.xStart, self.xDist, self.yStart, self.yDist, self.maxIt, self.gradient)
-		self.bytes_io = BytesIO()
-		self.img = Image.fromarray(np.flipud(self.array), 'RGB')
-		self.img.save(self.bytes_io, 'PNG')
-		self.MainSet.texture = self.ImageByte(self, self.bytes_io.getvalue()).texture
-
-		print(self.xDist)
-			
 		
-
+				
+				
 	def ImageByte(self, instance, ImageByte):
 		self.Buffer = BytesIO(ImageByte)
 		self.BgIm = CoreImage(self.Buffer, ext= 'png')
