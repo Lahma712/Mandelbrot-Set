@@ -12,6 +12,7 @@ import numpy as np
 import numba as nb
 from functions import DrawSet
 import time
+from gradient import polylinear_gradient
 kivy.require("2.0.0")
 
 class Draw(Widget):
@@ -20,7 +21,7 @@ class Draw(Widget):
 	ratio = float(Height/Width)
 	glow = 0
 	offset = 10
-	maxIt = 1000
+	maxIt = 300
 	light = 255
 	WWidth = Width*2
 	WHeight = Height
@@ -28,10 +29,12 @@ class Draw(Widget):
 	check = 1
 	x1 = -2
 	x2 = 2
-	xDist = abs(x2-x1)
-	y1 = -(xDist*ratio)/2
-	y2 = -y1
+	y1 = -2
+	y2 = 2
+	yDist = y2-y1
+	xDist = x2-x1
 	array = np.zeros((Height, Width, 3), dtype=np.uint8)
+	gradient = np.array(polylinear_gradient(200, 2000))
 
 
 	def __init__(self, **kwargs):
@@ -42,15 +45,14 @@ class Draw(Widget):
 			self.ZoomSet = Bg(pos=(self.Width, self.WHeight - self.Height), size= (self.Width, self.Height))
 
 			self.bytes_io = BytesIO()
-			self.array = DrawSet(self.Width, self.Height, self.x1, abs(self.x2-self.x1) , self.y1, abs(self.x2-self.x1)*self.ratio, self.maxIt)
+			self.array = DrawSet(self.Width, self.Height, self.x1, self.xDist , self.y1, self.yDist, self.maxIt, self.gradient)
 			
-			self.img = Image.fromarray(np.flipud(self.array), 'HSV')
-			self.img.convert('RGB').save(self.bytes_io, 'PNG')
+			self.img = Image.fromarray(np.flipud(self.array), 'RGB')
+			self.img.save(self.bytes_io, 'PNG')
 			self.MainSet.texture = self.ImageByte(self, self.bytes_io.getvalue()).texture
 			
-	def on_touch_down(self, touch):
+	def on_touch_move(self, touch):
 
-		
 
 		with self.canvas:
 
@@ -99,11 +101,11 @@ class Draw(Widget):
 			
 
 
-			self.zoomArray = DrawSet(self.Width, self.Height, self.xStart, self.xDist, self.yStart, self.yDist, self.maxIt)
+			self.zoomArray = DrawSet(self.Width, self.Height, self.xStart, self.xDist, self.yStart, self.yDist, self.maxIt, self.gradient)
 				
 			self.bytes_io = BytesIO()
-			self.img = Image.fromarray(np.flipud(self.zoomArray), 'HSV')
-			self.img.convert('RGB').save(self.bytes_io, 'PNG')
+			self.img = Image.fromarray(np.flipud(self.zoomArray), 'RGB')
+			self.img.save(self.bytes_io, 'PNG')
 
 			if touch.pos[0] > self.Width:
 				self.MainSet.texture = self.ImageByte(self, self.bytes_io.getvalue()).texture
@@ -111,10 +113,6 @@ class Draw(Widget):
 			else:
 				self.ZoomSet.texture = self.ImageByte(self, self.bytes_io.getvalue()).texture
 
-	
-			
-				
-				
 	def ImageByte(self, instance, ImageByte):
 		self.Buffer = BytesIO(ImageByte)
 		self.BgIm = CoreImage(self.Buffer, ext= 'png')
