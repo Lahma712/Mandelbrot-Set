@@ -15,8 +15,12 @@ import numba as nb
 from kivy.clock import Clock
 from functions import DrawSet
 import time
+import glob
+import cv2
+import os
 from gradient import polylinear_gradient
 kivy.require("2.0.0")
+import ffmpeg
 
 
 class Draw(Widget):
@@ -34,12 +38,11 @@ class Draw(Widget):
 	yEnd = (xDist*ratio)/2
 	yDist = yEnd-yStart
 	array = np.zeros((Height, Width, 3), dtype=np.uint8)
-	colorPoints = 3
-	totalColors = 30
-	gradient = np.concatenate((np.array(polylinear_gradient(colorPoints, totalColors)), [(0,0,0)]), axis= 0)
+	colorPoints = 100
+	totalColors = 1000
+	gradient = np.concatenate((np.array(polylinear_gradient(colorPoints, totalColors)), [(255,0,0)]), axis= 0)
 	check = 0
 	
-	print(len(gradient))
 
 	def __init__(self, **kwargs):
 		super(Draw, self).__init__(**kwargs)
@@ -55,6 +58,8 @@ class Draw(Widget):
 			self.img = Image.fromarray(np.flipud(self.array), 'RGB')
 			self.img.save(self.bytes_io, 'PNG')
 			self.MainSet.texture = self.ImageByte(self, self.bytes_io.getvalue()).texture
+
+			
 	
 			
 	def on_touch_move(self, touch):
@@ -87,31 +92,31 @@ class Draw(Widget):
 			super(Draw, self).on_touch_down(touch)
 
 	def ZoomInOut(self, window, keycode):
-		start = time.time()
+		
 		if keycode[1] == "w":
-			self.xStart = self.xStart + self.xDist*0.20
-			self.xEnd = self.xEnd - self.xDist*0.20
+			self.xStart = self.xStart + self.xDist*0.10
+			self.xEnd = self.xEnd - self.xDist*0.10
 
-			self.yStart = self.yStart + self.yDist*0.20
-			self.yEnd = self.yEnd - self.yDist*0.20
+			self.yStart = self.yStart + self.yDist*0.10
+			self.yEnd = self.yEnd - self.yDist*0.10
 
 			self.xDist = self.xEnd - self.xStart
 			self.yDist = self.yEnd - self.yStart
 
 	
 		elif keycode[1] == "s":
-			self.xStart = self.xStart - self.xDist*0.20
-			self.xEnd = self.xEnd + self.xDist*0.20
-			self.yStart = self.yStart - self.yDist*0.20
-			self.yEnd = self.yEnd + self.yDist*0.20
+			self.xStart = self.xStart - self.xDist*0.10
+			self.xEnd = self.xEnd + self.xDist*0.10
+			self.yStart = self.yStart - self.yDist*0.10
+			self.yEnd = self.yEnd + self.yDist*0.10
 
 			self.xDist = self.xEnd - self.xStart
 			self.yDist = self.yEnd - self.yStart
 
 		elif keycode[1] == "up":
-			self.maxIt += 20
+			self.maxIt += 100
 		elif keycode[1] == "down":
-			self.maxIt -= 20
+			self.maxIt -= 10
 		elif keycode[1] == "r":
 			self.gradient = np.concatenate((np.array(polylinear_gradient(self.colorPoints, self.totalColors)), [(0,0,0)]), axis= 0)
 
@@ -142,7 +147,75 @@ class Draw(Widget):
 					self.remove_widget(self.SaveBtn)
 					Window.size = (self.Width, self.Height)
 					self.check = 0
+
+		elif keycode[1] == "i":
+			self.ItVid = self.maxIt
+			while self.ItVid != 0:
+				self.array = DrawSet(self.Width, self.Height, self.xStart, self.xDist, self.yStart, self.yDist, self.ItVid, self.gradient)
+				self.img = Image.fromarray(np.flipud(self.array), 'RGB')
+				self.savename = r'Video\I' + str(self.ItVid) + r'.png'
+				self.img.save(self.savename, 'PNG')
+				self.ItVid -= 1
+
+			img_array = []
+
+			for filename in sorted(glob.glob(r'Video\*.png'), key=lambda name: int(name[7:-4])):
+				img = cv2.imread(filename)
+				height, width, layers = img.shape
+				size = (width,height)
+				img_array.append(img)
+
+
+ 
+			
+			out = cv2.VideoWriter(r'Video\Video.avi',0, 15, size)
+			for i in range(len(img_array)):
+				out.write(img_array[i])
+			out.release()
+
+			files = glob.glob(r'Video\*.png')
+			for f in files:
+				os.remove(f)
+
+		elif keycode[1] == "k":
+			self.number = 0
+			while self.xStart > -2:
+
+				self.array = DrawSet(self.Width, self.Height, self.xStart, self.xDist, self.yStart, self.yDist, self.maxIt, self.gradient)
+				self.img = Image.fromarray(np.flipud(self.array), 'RGB')
+				self.savename = r'Video\I' + str(self.number) + r'.png'
+				self.img.save(self.savename, 'PNG')
+
+				self.xStart = self.xStart - self.xDist*0.001
+				self.xEnd = self.xEnd + self.xDist*0.001
+				self.yStart = self.yStart - self.yDist*0.001
+				self.yEnd = self.yEnd + self.yDist*0.001
+
+				self.xDist = self.xEnd - self.xStart
+				self.yDist = self.yEnd - self.yStart
+				self.number +=1
+
+			img_array = []
+
+			for filename in sorted(glob.glob(r'Video\*.png'), key=lambda name: int(name[7:-4])):
+				img = cv2.imread(filename)
+				height, width, layers = img.shape
+				img_array.append(img)
+
+
+ 
+			
+			out = cv2.VideoWriter(r'Video\Video.avi',0, 60, (self.Width, self.Height))
+			for i in range(len(img_array)):
+				out.write(img_array[i])
+			out.release()
+
+			files = glob.glob(r'Video\*.png')
+			for f in files:
+				os.remove(f)
 				
+
+			
 
 			
 	
