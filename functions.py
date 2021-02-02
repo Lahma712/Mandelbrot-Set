@@ -1,32 +1,39 @@
 import numba as nb
 import numpy as np
+import math
 
-@nb.jit
-def mandelbrot(c,maxIt): #mandelbrot function
-		z = 0
-		n = 0
-		while abs(z) <= 2 and n < maxIt:
-			z = z * z + c
-			n += 1
-		return n 
+@nb.njit(cache= True, fastmath = True)
+def mandelbrot(c_r, c_i,maxIt, length, alg): #mandelbrot function
+        z_r = 0 
+        z_i = 0
+        z_r2 = 0
+        z_i2= 0
 
-@nb.jit
-def DrawSet( W, H, xStart, xDist, yStart, yDist, maxIt, hue, saturation, value, glow, a, b, Qcolor, offset):
-		array = np.zeros((H, W, 3), dtype=np.uint8)
-		for x in range(0, W):
-			for y in range (0, H):
-				
-				c = complex( (x/W)* xDist +xStart, -((y/H) * yDist + yStart))
-				
-				cIt = mandelbrot(c, maxIt)
-				color = int((255 * cIt) / maxIt)
-				
-				if Qcolor == True:
-					if color + offset > 255:
-						hue = (color + offset) - 255
-					else:
-						hue = color + offset
-						saturation = 255 - glow * color
+        for y in range( maxIt):
+            z_i = 2 * z_r * z_i + c_i
+            z_r = z_r2 - z_i2 + c_r
+            z_r2 = z_r * z_r
+            z_i2 = z_i * z_i
+            
+            if z_r2 + z_i2 > 4:
+                if alg==0:
+                    return int((y/maxIt) * length)
+                else:
+                    return y%length
+        return length -1
 
-				array[y,x] = (hue, saturation, value if cIt == maxIt else a+b*glow * color)
-		return array
+@nb.njit(cache= True, fastmath= True, parallel = True, nogil = True)
+def DrawSet(W, H, xStart, xDist, yStart, yDist, maxIt, gradient, alg):
+
+        array = np.zeros((H, W, 3), dtype=np.uint8) #array that holds 'rgb' tuple for every pixel
+        for x in nb.prange(0, W):
+            c_r = ((x/W)* xDist + xStart) #some math to calculate real part
+            for y in nb.prange(0, H):
+                c_i = (-((y/H) * yDist + yStart)) #some more math to calculate imaginary part
+                color = mandelbrot(c_r, c_i, maxIt, len(gradient), alg)
+        
+                array[y,x] = gradient[color] #adds rgb value
+        
+        return array #returns rgb array, gets later displayed using PIL
+
+
