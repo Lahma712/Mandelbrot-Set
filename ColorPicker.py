@@ -2,9 +2,6 @@ from PIL import Image, ImageDraw
 import numpy as np
 import sys
 
-np.set_printoptions(threshold=sys.maxsize)
-
-
 def loop(index, HStart, HEnd, H, W, array, colorBar, op):
 
 	division = 255/(H/6)
