@@ -3,7 +3,7 @@ import numpy as np
 import math
 
 @nb.njit(cache= True, fastmath = True)
-def mandelbrot(c_r, c_i,maxIt, length, alg): #mandelbrot function
+def mandelbrot(c_r, c_i,maxIt, length, alg): #standard mandelbrot function, z = z^2 + c
         z_r = 0 
         z_i = 0
         z_r2 = 0
@@ -27,11 +27,10 @@ def DrawSet(W, H, xStart, xDist, yStart, yDist, maxIt, gradient, alg):
 
         array = np.zeros((H, W, 3), dtype=np.uint8) #array that holds 'rgb' tuple for every pixel
         for x in nb.prange(0, W):
-            c_r = ((x/W)* xDist + xStart) #some math to calculate real part
+            c_r = ((x/W)* xDist + xStart) #translates kivy x coord to mandelbrot x coord plane
             for y in nb.prange(0, H):
-                c_i = (-((y/H) * yDist + yStart)) #some more math to calculate imaginary part
-                color = mandelbrot(c_r, c_i, maxIt, len(gradient), alg)
-        
+                c_i = (-((y/H) * yDist + yStart)) #translates kivy x coord to mandelbrot x coord plane
+                color = mandelbrot(c_r, c_i, maxIt, len(gradient), alg) #calculates escape iteration which is used to color the mandelbrot set
                 array[y,x] = gradient[color] #adds rgb value
         
         return array #returns rgb array, gets later displayed using PIL

@@ -1,4 +1,3 @@
-
 from numpy import random as rnd
 
 #Not my code, source: https://bsouthga.dev/posts/color-gradients-with-python 
@@ -16,7 +15,6 @@ def linear_gradient(s, f, n):
     RGB_list.append(tuple(curr_vector))
   
   return RGB_list
-
 
 def rand_rgb_color(num=5):
   ''' Generate random rgb colors, default is one,
