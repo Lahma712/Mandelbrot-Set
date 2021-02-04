@@ -46,6 +46,9 @@ class Draw(Widget):
 	gradient = np.concatenate((np.array(polylinear_gradient(colorPoints, totalColors)), [(0,0,0)]) , axis= 0) #array that holds initial gradient, 2D array 
 	alg = 0 #variable that is used to check which coloring  algorithm should be used, 0 is the escape time coloring algorithm, 1 is a static coloring algorithm similar to histogram coloring
 	
+	if os.path.isdir('Video\\') == False:
+		os.mkdir('Video\\')
+
 	def __init__(self, **kwargs):
 		super(Draw, self).__init__(**kwargs)
 		with self.canvas:
@@ -300,7 +303,6 @@ class Draw(Widget):
 		self.MainSet.texture = self.ImageByte(self, self.bytes_io.getvalue()).texture
 
 		
-
 	def setColor(self, instance): #called when the gradient is updated, applies these changes to the rendering window
 		self.gradient = np.concatenate((np.array(polylinear_gradient(self.colorPoints, self.totalColors)), [(0,0,0)]), axis= 0)
 		self.bytes_io = BytesIO()
