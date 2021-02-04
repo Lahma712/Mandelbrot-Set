@@ -2,9 +2,16 @@ from PIL import Image, ImageDraw
 import numpy as np
 import sys
 
+<<<<<<< HEAD
 def loop(index, HStart, HEnd, H, W, array, colorBar, op): #loop that is used to create rainbow colorbar
 	division = 255/(H/6) #colorbar can be divided into 6 smaller units where in each unit, one RGB value goes up/down by 255 
 	remainder = division % 1 
+=======
+def loop(index, HStart, HEnd, H, W, array, colorBar, op):
+
+	division = 255/(H/6)
+	remainder = division % 1
+>>>>>>> 01553416c71f22a94baba66c42a2fdf44c69c3e2
 	remainderCount = remainder
 	for y in range(HStart, HEnd):
 		colorBar[index] = colorBar[index] + op * (int(division) + int(remainderCount))
