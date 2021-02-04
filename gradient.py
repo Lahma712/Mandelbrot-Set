@@ -33,7 +33,7 @@ def polylinear_gradient(colors, n):
   ''' returns a list of colors forming linear gradients between
       all sequential pairs of colors. "n" specifies the total
       number of desired output colors '''
-  
+  # The number of colors per individual linear gradient
   
   n_out = int(float(n) / (len(colors) - 1))
   gradient_dict = linear_gradient(colors[0], colors[1], n_out)
