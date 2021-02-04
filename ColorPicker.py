@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def loop(index, HStart, HEnd, H, W, array, colorBar, op): #loop that is used to create rainbow colorbar
 	division = 255/(H/6) #colorbar can be divided into 6 smaller units where in each unit, one RGB value goes up/down by 255 
 	remainder = division % 1 
