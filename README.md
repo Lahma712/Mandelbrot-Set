@@ -7,7 +7,7 @@ To increase performance, I used the <i>Numba</i> library which translates a part
 
 # How to use:
 
-- <b>Download the lastest release</b> and follow the instructions <b>or download the source code</b> and run the <i>MandelBrot.py</i> from an IDE
+<b>Download the lastest release</b> and follow the instructions <b>or download the source code</b> and run the <i>MandelBrot.py</i> from an IDE
 
 - Press <b>W</b> or <b>S</b> to zoom in/out
 - Press the <b>Up</b> or <b>Down</b> arrow keys to increase/decrease the number of iterations
