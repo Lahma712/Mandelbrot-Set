@@ -33,3 +33,10 @@ To increase performance, I used the <i>Numba</i> library which translates a part
 
 - Enter your desired resolution into the <b>Width</b> and <b>Height</b> input box. Then enter an <b>antialias factor</b> (1 = no antialias, 2 = 2x antialias, ...).
 Save the image by pressing on <b>Save Image</b>. The image will be saved on your desktop, inside the <i><b>Mandelbrot</b></i> folder which will be created.
+
+<b>Rendering videos: </b>
+
+- You can also use this application to render zoom videos. Simply zoom into the Mandelbrot Set until you've reached the desired depth. Then, fill in the <b>Width</b>, <b>Height</b>, <b>Antialias</b> and <b>FPS</b> input box accordingly. Finally, press on <b>Zoom Video</b>
+
+<b>NOTE:</b> While rendering the video, the application will stop responding until the video has been created. Rendering speed depends on your PC specs as well as the desired resolution and antialiasing of the video.
+
