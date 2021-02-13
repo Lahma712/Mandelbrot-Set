@@ -41,7 +41,7 @@ Save the image by pressing on <b>Save Image</b>. The image will be saved on your
 
 <b>NOTE:</b> While rendering the video, the application will stop responding until the video has been created. Rendering speed depends on your PC specs as well as the desired resolution and antialiasing of the video.
 
-img src = "https://media.giphy.com/media/pcizXQxGO3UeNm5jxC/giphy.gif" width = 500>
+<img src = "https://media.giphy.com/media/pcizXQxGO3UeNm5jxC/giphy.gif" width = 500>
 
 
 <img src = "https://media.giphy.com/media/rhaxh05m3QSoRZblKa/giphy.gif" width = 500>
