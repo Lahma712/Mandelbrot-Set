@@ -44,6 +44,6 @@ Save the image by pressing on <b>Save Image</b>. The image will be saved on your
 
 
 <img src = "https://media.giphy.com/media/pcizXQxGO3UeNm5jxC/giphy.gif" width = 500>
-
+![gif](https://media.giphy.com/media/pcizXQxGO3UeNm5jxC/giphy.gif)
 <img src = "https://media.giphy.com/media/0CCPmjrPJVP1FtqmhN/giphy.gif" width = 500>
 
