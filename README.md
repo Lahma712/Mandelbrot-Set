@@ -8,6 +8,5 @@ To increase performance, I used the <i>Numba</i> library which translates a part
 # How to use:
 
 - <b>Download the lastest release</b> and follow the instructions <b>or download the source code</b> and run the <i>MandelBrot.py</i> from an IDE
-
 - You can drag the plane around with your mouse cursor
 - You can zoom in/out by pressing <b>w</b> or <b>s</b> respectively 
