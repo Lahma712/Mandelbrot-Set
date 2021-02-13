@@ -9,7 +9,7 @@ def mandelbrot(c_r, c_i,maxIt, length, alg): #standard mandelbrot function, z = 
         z_r2 = 0
         z_i2= 0
 
-        for y in range( maxIt):
+        for y in nb.prange( maxIt):
             z_i = 2 * z_r * z_i + c_i
             z_r = z_r2 - z_i2 + c_r
             z_r2 = z_r * z_r

@@ -25,6 +25,7 @@ kivy.require("2.0.0")
 
 
 class Draw(Widget):
+	
 	Width = 500  #Width of render window
 	Height =500  #Height of render window
 	ratio = float(Height/Width)
@@ -46,6 +47,8 @@ class Draw(Widget):
 	gradient = np.concatenate((np.array(polylinear_gradient(colorPoints, totalColors)), [(0,0,0)]) , axis= 0) #array that holds initial gradient, 2D array 
 	alg = 0 #variable that is used to check which coloring  algorithm should be used, 0 is the escape time coloring algorithm, 1 is a static coloring algorithm similar to histogram coloring
 	
+
+
 	if os.path.isdir('Video\\') == False:
 		os.mkdir('Video\\')
 
@@ -216,7 +219,7 @@ class Draw(Widget):
 			pass
 
 		while self.xStartVid > -2.5: #zooms out until the X starting coord is -2.5, so the whole mandelbrot fits inside the window
-			self.array = DrawSet(self.SWidth*self.Antialias, self.SHeight*Antialias, self.xStartVid, self.xDistVid, self.yStartVid, self.yDistVid, self.maxIt, self.gradient, self.alg)
+			self.array = DrawSet(self.SWidth*self.Antialias, self.SHeight*self.Antialias, self.xStartVid, self.xDistVid, self.yStartVid, self.yDistVid, self.maxIt, self.gradient, self.alg)
 			self.img = Image.fromarray(np.flipud(self.array), 'RGB')
 			self.savename = 'Video\\' + str(self.number) + '.png'
 			self.img = self.img.resize((self.SWidth, self.SHeight), Image.ANTIALIAS)
@@ -328,9 +331,12 @@ class Draw(Widget):
 
 
 	def Video(self, instance): #creates video from frames inside the Video folder
+		username = os.getlogin()
+		if os.path.isdir('C:\\Users\\{}\\Desktop\\Mandelbrot'.format(username)) == False:
+			os.mkdir('C:\\Users\\{}\\Desktop\\Mandelbrot'.format(username))
 		try:
 			self.Fps = int(''.join(filter(str.isdigit, self.FpsBox.text)))
-			cmd = 'ffmpeg -framerate {} -i Video\\%d.png -c:v libx264 -crf 1 -pix_fmt yuv420p -framerate {} Video{}.avi'.format(self.Fps, self.Fps, random.randint(1, 9000))
+			cmd = 'ffmpeg -framerate {} -i Video\\%d.png -c:v libx264 -crf 1 -pix_fmt yuv420p -framerate {} C:\\Users\\{}\\Desktop\\Mandelbrot\\Video{}.mp4'.format(self.Fps, self.Fps, username, random.randint(1, 9000))
 			sp.call(cmd,shell=True)
 			files = glob.glob('Video\\*.png') 
 			for f in files:
@@ -340,6 +346,9 @@ class Draw(Widget):
 		
 	
 	def SaveImage(self, instance): #saves current Image
+		username = os.getlogin()
+		if os.path.isdir('C:\\Users\\{}\\Desktop\\Mandelbrot'.format(username)) == False:
+			os.mkdir('C:\\Users\\{}\\Desktop\\Mandelbrot'.format(username))
 		try:
 			self.SHeight = int(''.join(filter(str.isdigit, self.HeightBox.text)))
 			self.Antialias = int(''.join(filter(str.isdigit, self.AntialiasBox.text)))
@@ -353,7 +362,7 @@ class Draw(Widget):
 			self.array = DrawSet(self.SWidth*self.Antialias, self.SHeight*self.Antialias, self.xStartSave, self.xDist, (self.yStartSave + (self.xDist*self.ratio)/2) - (self.xDist * (self.SHeight/self.SWidth))/2, self.xDist * (self.SHeight/self.SWidth), self.maxIt, self.gradient, self.alg)
 			self.img = Image.fromarray(np.flipud(self.array), 'RGB')
 			self.img = self.img.resize((self.SWidth, self.SHeight), Image.ANTIALIAS)
-			self.img.save('Fractal{}.png'.format(random.randint(1,9000)))
+			self.img.save('C:\\Users\\{}\\Desktop\\Mandelbrot\\Fractal{}.png'.format(username, random.randint(1,9000)))
 			self.img.show()
 		except:
 			pass
