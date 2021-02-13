@@ -57,3 +57,7 @@ Save the image by pressing on <b>Save Image</b>. The image will be saved on your
 - PIL (Python Imaging Library)
 - ffmpeg
 - Numba
+
+# Sources:
+
+- https://en.wikipedia.org/wiki/Mandelbrot_set
