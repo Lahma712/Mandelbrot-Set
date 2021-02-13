@@ -32,4 +32,4 @@ To increase performance, I used the <i>Numba</i> library which translates a part
 <b>Saving as Wallpaper: </b>
 
 - Enter your desired resolution into the <b>Width</b> and <b>Height</b> input box. Then enter an <b>antialias factor</b> (1 = no antialias, 2 = 2x antialias, ...).
-Save the image by pressing on <b>Save Image</b>. The image will be saved on your desktop, inside the <b>Mandelbrot</b> folder which will be created.
+Save the image by pressing on <b>Save Image</b>. The image will be saved on your desktop, inside the <i><b>Mandelbrot</b></i> folder which will be created.
