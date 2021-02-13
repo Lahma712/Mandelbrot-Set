@@ -17,3 +17,10 @@ To increase performance, I used the <i>Numba</i> library which translates a part
 - Press <b>R</b> to randomize the color gradient
 - Press the <b>Left</b> or <b>Right</b> arrow keys to add/subtract colors from the color gradient
 - Press <b>A</b> to switch between two different coloring algorithms
+
+<b>Changing the colors:</b>
+
+- Select a color with the color picker. The selected color will be displayed in the middle color window.
+- You can then change some color within the gradient: 
+
+<img src = "https://media.giphy.com/media/DSpt7wE9rQstDbqrto/giphy.gif" width = 500>
