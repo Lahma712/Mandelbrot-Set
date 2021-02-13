@@ -24,3 +24,12 @@ To increase performance, I used the <i>Numba</i> library which translates a part
 - You can then change some color within the gradient: 
 
 <img src = "https://media.giphy.com/media/DSpt7wE9rQstDbqrto/giphy.gif" width = 500>
+
+- By adding colors to the gradient with the <b>Right</b> arrow key, the picture will become more colorful:
+
+<img src = "https://imgur.com/DEhi7Xr.png" width = 500>
+
+<b>Saving as Wallpaper: </b>
+
+- Enter your desired resolution into the <b>Width</b> and <b>Height</b> input box. Then enter an antialias factor (1 = no antialias, 2 = 2x antialias, ...).
+Save the image by pressing on <b>Save Image</b>. The image will be saved on your desktop, inside the <b>Mandelbrot</b> folder which will be created.
