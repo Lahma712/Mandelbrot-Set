@@ -48,3 +48,12 @@ Save the image by pressing on <b>Save Image</b>. The image will be saved on your
 - You can also render another type of video which I called <i><b>iteration videos</i></b>. You zoom into the desired depth, then fill in the <b>Width</b>, <b>Height</b>, <b>Antialias</b> and <b>FPS</b> input box accordingly. Finally, press on <b>Iter. Video</b>. The video will gradually increase the iterations up to the current iteration:
 
 <img src = "https://media.giphy.com/media/LeI5lY44OU2Jrl5ABq/giphy.gif" width = 500>
+
+
+# Dependencies:
+
+- Python
+- Kivy 2.0.0
+- PIL (Python Imaging Library)
+- ffmpeg
+- Numba
