@@ -59,5 +59,5 @@ Save the image by pressing on <b>Save Image</b>. The image will be saved on your
 - Numba
 
 # Sources:
-
+- <i>gradient.py</i>: Credits to https://bsouthga.dev/posts/color-gradients-with-python
 - https://en.wikipedia.org/wiki/Mandelbrot_set
