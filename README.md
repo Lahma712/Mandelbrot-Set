@@ -9,6 +9,7 @@ To increase performance, I used the <i>Numba</i> library which translates a part
 
 - <b>Download the lastest release</b> and follow the instructions <b>or download the source code</b> and run the <i>MandelBrot.py</i> from an IDE
 
-- <b>Movement: </b>
-
-  You can <b>drag</b> the plane around with your mouse cursor and <b>zoom in/out</b> by pressing <b>W</b> or <b>S</b> respectively on your keyboard:
+- Press <b>W</b> or <b>S</b> to zoom in/out
+- Press the <b>Up</b> or <b>Down</b> arrow keys to increase/decrease the number of iterations
+- Press <b>R</b> to randomize the color gradient
+- Press the <b>Left</b> or <b>Right</b> arrow keys to add/subtract colors from the color gradient
