@@ -9,7 +9,7 @@ To increase performance, I used the <i>Numba</i> library which translates a part
 
 <b>Download the lastest release</b> and follow the instructions <b>or download the source code</b> and run the <i>MandelBrot.py</i> from an IDE
 
-<b>Keyboard actions:</b>
+## <b>Keyboard actions:</b>
 
 - Use the <b>mouse cursor</b> to drag the plane around
 - Press <b>W</b> or <b>S</b> to zoom in/out
@@ -18,7 +18,7 @@ To increase performance, I used the <i>Numba</i> library which translates a part
 - Press the <b>Left</b> or <b>Right</b> arrow keys to add/subtract colors from the color gradient
 - Press <b>A</b> to switch between two different coloring algorithms
 
-<b>Changing the colors:</b>
+## <b>Changing the colors:</b>
 
 - Select a color with the color picker. The selected color will be displayed in the middle color window.
 - You can then change some color within the gradient: 
@@ -34,7 +34,7 @@ To increase performance, I used the <i>Numba</i> library which translates a part
 - Enter your desired resolution into the <b>Width</b> and <b>Height</b> input box. Then enter an <b>antialias factor</b> (1 = no antialias, 2 = 2x antialias, ...).
 Save the image by pressing on <b>Save Image</b>. The image will be saved on your desktop, inside the <i><b>Mandelbrot</b></i> folder which will be created.
 
-<b>Rendering videos: </b>
+## <b>Rendering videos: </b>
 
 <b>NOTE:</b> While rendering the video, the application will stop responding until the video has been created. Rendering speed depends on your PC specs as well as the desired resolution and antialiasing of the video.
 
