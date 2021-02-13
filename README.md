@@ -13,4 +13,4 @@ To increase performance, I used the <i>Numba</i> library which translates a part
 - Press the <b>Up</b> or <b>Down</b> arrow keys to increase/decrease the number of iterations
 - Press <b>R</b> to randomize the color gradient
 - Press the <b>Left</b> or <b>Right</b> arrow keys to add/subtract colors from the color gradient
-- Press <b>A</b> to switch between the two coloring algorithms
+- Press <b>A</b> to switch between two different coloring algorithms
