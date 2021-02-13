@@ -36,10 +36,11 @@ Save the image by pressing on <b>Save Image</b>. The image will be saved on your
 
 <b>Rendering videos: </b>
 
+<b>NOTE:</b> While rendering the video, the application will stop responding until the video has been created. Rendering speed depends on your PC specs as well as the desired resolution and antialiasing of the video.
+
 - You can also use this application to render <i><b>zoom videos</b></i>. Simply zoom into the Mandelbrot Set until you've reached the desired depth. Then, fill in the <b>Width</b>, <b>Height</b>, <b>Antialias</b> and <b>FPS</b> input box accordingly. Finally, press on <b>Zoom Video</b>
   The video will be saved on your desktop inside the <b>Mandelbrot</b> folder.
 
-<b>NOTE:</b> While rendering the video, the application will stop responding until the video has been created. Rendering speed depends on your PC specs as well as the desired resolution and antialiasing of the video.
 
 <img src = "https://media.giphy.com/media/pcizXQxGO3UeNm5jxC/giphy.gif" width = 500>
 
