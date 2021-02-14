@@ -41,7 +41,7 @@ Save the image by pressing on <b>Save Image</b>. The image will be saved on your
 - You can also use this application to render <i><b>zoom videos</b></i>. Simply zoom into the Mandelbrot Set until you've reached the desired depth. Then, fill in the <b>Width</b>, <b>Height</b>, <b>Antialias</b> and <b>FPS</b> input box accordingly. Finally, press on <b>Zoom Video</b>. The video will be saved on your desktop inside the <i><b>Mandelbrot</b></i> folder.
 
 
-<img src = "https://media.giphy.com/media/66oIT4nhTPdDgiTnVh/giphy.gif" width = 500>
+<img src = "https://media.giphy.com/media/pcizXQxGO3UeNm5jxC/giphy.gif" width = 500>
 
 
 
