@@ -25,11 +25,11 @@ To increase performance, I used the <i>Numba</i> library which translates a part
 - Select a color with the color picker. The selected color will be displayed in the middle color window.
 - You can then change some color within the gradient: 
 
-<img src = "https://media.giphy.com/media/DSpt7wE9rQstDbqrto/giphy.gif" width = 500>
+    <img src = "https://media.giphy.com/media/DSpt7wE9rQstDbqrto/giphy.gif" width = 500>
 
 - By adding colors to the gradient with the <b>Right</b> arrow key, the picture will become more colorful:
 
-<img src = "https://imgur.com/DEhi7Xr.png" width = 500>
+    <img src = "https://imgur.com/DEhi7Xr.png" width = 500>
 
 ## <b>Saving as wallpaper: </b>
 
@@ -43,7 +43,7 @@ Save the image by pressing on <b>Save Image</b>. The image will be saved on your
 - You can also use this application to render <i><b>zoom videos</b></i>. Simply zoom into the Mandelbrot Set until you've reached the desired depth. Then, fill in the <b>Width</b>, <b>Height</b>, <b>Antialias</b> and <b>FPS</b> input box accordingly. Finally, press on <b>Zoom Video</b>. The video will be saved on your desktop inside the <i><b>Mandelbrot</b></i> folder.
 
 
-<img src = "https://media.giphy.com/media/pcizXQxGO3UeNm5jxC/giphy.gif" width = 500>
+    <img src = "https://media.giphy.com/media/pcizXQxGO3UeNm5jxC/giphy.gif" width = 500>
 
 
 
