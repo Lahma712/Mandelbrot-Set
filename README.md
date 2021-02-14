@@ -10,7 +10,7 @@ The Mandelbrot Set is the set of complex numbers <b><i>c</i></b> for which the f
 # Preview:
 <img src = "https://imgur.com/1oMCbzP.png" width = 500>
 
-# How to use:
+# Instructions:
 
 <b>Download the lastest release</b> and follow the instructions <b>or download the source code</b> and run the <i>MandelBrot.py</i> from an IDE
 
