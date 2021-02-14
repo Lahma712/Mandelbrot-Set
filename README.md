@@ -49,13 +49,13 @@ Save the image by pressing on <b>Save Image</b>. The image will be saved on your
 
 - You can also render another type of video which I called <i><b>iteration videos</i></b>. You zoom into the desired depth, then fill in the <b>Width</b>, <b>Height</b>, <b>Antialias</b> and <b>FPS</b> input box accordingly. Finally, press on <b>Iter. Video</b>. The video will stay at the current depth and gradually increase the iterations from 0 up to the current number of iterations. The video will be saved on your desktop inside the <i><b>Mandelbrot</b></i> folder:
 
-This is the default <b>coloring algorithm</b>, which is the standard <i>escape time coloring algorithm</i>. You can see that is is <b>dynamic</b>, meaning that, as you increase the number of iterations, the colors kind of "flow" towards the Mandelbrot Set:
+    This is the default <b>coloring algorithm</b>, which is the standard <i>escape time coloring algorithm</i>. You can see that is is <b>dynamic</b>, meaning that, as you increase the number of iterations, the colors kind of "flow" towards the Mandelbrot Set:
 
-<img src = "https://media.giphy.com/media/0fLhxVk8Dutw0yuzBL/giphy.gif" width = 500>
+    <img src = "https://media.giphy.com/media/0fLhxVk8Dutw0yuzBL/giphy.gif" width = 500>
 
-By pressing <b>A</b> you change the default coloring algorithm to a <b>static</b> coloring algorithm. This coloring algorithm is similar to the <i>histogram coloring algorithm</i>, in the sense that the colors do not "flow" or change as much, but just gradually iterate through the gradient as they get closer to the Mandelbrot Set:
+    By pressing <b>A</b> you change the default coloring algorithm to a <b>static</b> coloring algorithm. This coloring algorithm is similar to the <i>histogram coloring algorithm</i>, in the sense that the colors do not "flow" or change as much, but just gradually iterate through the gradient as they get closer to the Mandelbrot Set:
 
-<img src= "https://media.giphy.com/media/MpfPn0uU8OJzVPbP0R/giphy.gif" width = 500>
+    <img src= "https://media.giphy.com/media/MpfPn0uU8OJzVPbP0R/giphy.gif" width = 500>
 
 
 For more details on the coloring algorithms, see https://en.wikipedia.org/wiki/Plotting_algorithms_for_the_Mandelbrot_set
