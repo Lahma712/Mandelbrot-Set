@@ -5,7 +5,7 @@ To increase performance, I used the <i>Numba</i> library which translates a part
 
 The Mandelbrot Set is a self-similar fractal, which has been discovered by the French-American Mathematician <i>Benoit. B. Mandelbrot</i>. A fractal is a geometrical shape with a finite area but inifite perimeter. 
 
-The Mandelbrot Set is the set of complex numbers <b><i>c</i></b> for which the function <b><i>z<sub><i>n+1</i></sub> = z<sub>n</sub> + c</i></b> remains bounded when iterated from <b><i>z</i>=0</b>.
+The Mandelbrot Set is the set of complex numbers <b><i>c</i></b> for which the function <b><i>z<sub><i>n+1</i></sub> = z<sub>n</sub> + c</i></b> remains bounded when iterated from <b><i>z = 0</b></i>.
 
 # Preview:
 <img src = "https://imgur.com/1oMCbzP.png" width = 500>
