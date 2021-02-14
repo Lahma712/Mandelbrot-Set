@@ -53,7 +53,7 @@ This is the default <b>coloring algorithm</b>. You can see that is is <b>dynamic
 
 <img src = "https://media.giphy.com/media/0fLhxVk8Dutw0yuzBL/giphy.gif" width = 500>
 
-By pressing <b>A</b> you change the default coloring algorithm to a <b>static</b> coloring algorithm, where the colors do not "flow" but change gradually as they get closer to the Mandelbrot Set:
+By pressing <b>A</b> you change the default coloring algorithm to a <b>static</b> coloring algorithm, where the colors do not "flow" but just change gradually as they get closer to the Mandelbrot Set:
 
 <img src= "https://media.giphy.com/media/MpfPn0uU8OJzVPbP0R/giphy.gif" width = 500>
 
