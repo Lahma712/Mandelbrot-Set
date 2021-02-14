@@ -49,10 +49,11 @@ Save the image by pressing on <b>Save Image</b>. The image will be saved on your
 
 - You can also render another type of video which I called <i><b>iteration videos</i></b>. You zoom into the desired depth, then fill in the <b>Width</b>, <b>Height</b>, <b>Antialias</b> and <b>FPS</b> input box accordingly. Finally, press on <b>Iter. Video</b>. The video will stay at the current depth and gradually increase the iterations from 0 up to the current number of iterations. The video will be saved on your desktop inside the <i><b>Mandelbrot</b></i> folder:
 
-This is the default coloring algorithm. You can see that is is dynamic, meaning that the gradient kind of "flows" towards the Mandelbrot Set:
+This is the default <b>coloring algorithm</b>. You can see that is is <b>dynamic</b>, meaning that the gradient kind of "flows" towards the Mandelbrot Set:
+
 <img src = "https://media.giphy.com/media/0fLhxVk8Dutw0yuzBL/giphy.gif" width = 500>
 
-By pressing <b>A</b> you change the default coloring algorithm to a static coloring algorithm, where the gradient does not "flow" but remains the same at every depth:
+By pressing <b>A</b> you change the default coloring algorithm to a <b>static</b> coloring algorithm, where the gradient does not "flow" but remains the same at every depth:
 
 <img src= "https://media.giphy.com/media/MpfPn0uU8OJzVPbP0R/giphy.gif" width = 500>
 
