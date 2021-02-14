@@ -50,7 +50,7 @@ Save the image by pressing on <b>Save Image</b>. The image will be saved on your
 - You can also render another type of video which I called <i><b>iteration videos</i></b>. You zoom into the desired depth, then fill in the <b>Width</b>, <b>Height</b>, <b>Antialias</b> and <b>FPS</b> input box accordingly. Finally, press on <b>Iter. Video</b>. The video will stay at the current depth and gradually increase the iterations from 0 up to the current number of iterations. The video will be saved on your desktop inside the <i><b>Mandelbrot</b></i> folder:
 
 
-https://media.giphy.com/media/xQZkOXx2muUGBcv3sA/giphy.gif
+![](https://media.giphy.com/media/xQZkOXx2muUGBcv3sA/giphy.gif)
 
 
 
