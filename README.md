@@ -49,7 +49,7 @@ Save the image by pressing on <b>Save Image</b>. The image will be saved on your
 
 
 
-<img src = "https://media.giphy.com/media/rhaxh05m3QSoRZblKa/giphy.gif" width = 500>
+<img src = "https://media.giphy.com/media/xQZkOXx2muUGBcv3sA/giphy.gif" width = 500>
 
 
 # Dependencies:
