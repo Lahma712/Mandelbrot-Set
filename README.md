@@ -2,10 +2,11 @@
 
 This is a Python application that lets you render the Mandelbrot Set. I implemented the GUI with <i>Kivy</i> as well as <i>PIL</i> (<i>Python Imaging Library</i>). 
 To increase performance, I used the <i>Numba</i> library which translates a part of my <i>Python</i> code into fast <i>machine code</i>.
+
+The Mandelbrot Set is a self-similar fractal, which has been discovered by the French-American Mathematician Benoit. B. Mandelbrot. A fractal is a geometrical shape with a finite area but inifite perimeter. The Mandelbrot Set is the set of complex numbers <i>c</i> for which the function <b><i>z<sub><i>n+1</i></sub> = z<sub>n</sub> + c</i></b> remains bounded when iterated from <b><i>z</i>=0</b>.
+
 # Preview:
 <img src = "https://imgur.com/1oMCbzP.png" width = 500>
-
-
 
 # How to use:
 
