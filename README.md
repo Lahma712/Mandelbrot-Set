@@ -58,7 +58,7 @@ By pressing <b>A</b> you change the default coloring algorithm to a <b>static</b
 <img src= "https://media.giphy.com/media/MpfPn0uU8OJzVPbP0R/giphy.gif" width = 500>
 
 
-
+For more details on the coloring algorithms, see https://en.wikipedia.org/wiki/Plotting_algorithms_for_the_Mandelbrot_set#Optimized_escape_time_algorithms
 
 # Dependencies:
 
@@ -71,3 +71,4 @@ By pressing <b>A</b> you change the default coloring algorithm to a <b>static</b
 # Sources:
 - <i>gradient.py</i>: Credits to https://bsouthga.dev/posts/color-gradients-with-python
 - https://en.wikipedia.org/wiki/Mandelbrot_set
+- https://en.wikipedia.org/wiki/Plotting_algorithms_for_the_Mandelbrot_set#Optimized_escape_time_algorithms
