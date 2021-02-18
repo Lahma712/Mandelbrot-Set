@@ -68,7 +68,7 @@ For more details on the coloring algorithms, see https://en.wikipedia.org/wiki/P
 - Python 3.x
 - Kivy 2.0.0
 - PIL (Python Imaging Library)
-- ffmpeg
+- ffmpeg http://ffmpeg.org
 - Numba
 
 # Sources:
