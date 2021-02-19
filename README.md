@@ -69,7 +69,8 @@ For more details on the coloring algorithms, see https://en.wikipedia.org/wiki/P
 - Kivy 2.0.0
 - PIL (Python Imaging Library)
 - Numba
-- opencv-python
+- Opencv-python
+- Numpy
 
 # Sources:
 - <i>gradient.py</i>: Credits to https://bsouthga.dev/posts/color-gradients-with-python
