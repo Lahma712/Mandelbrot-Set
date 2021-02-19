@@ -4,6 +4,7 @@ from kivy.uix.widget import Widget
 from kivy.uix.image import Image as Bg
 from kivy.core.image import Image as CoreImage
 from kivy.uix.textinput import TextInput
+from kivy.uix.label import Label
 from PIL import Image, ImageDraw
 from kivy.core.window import Window
 from kivy.uix.button import Button
@@ -13,19 +14,18 @@ from io import BytesIO
 import numpy as np
 import glob
 import os
-import subprocess as sp
-import ffmpeg
+import cv2
 from ColorPicker import colorbar, colorsquare
 from gradient import polylinear_gradient, rand_rgb_color
 from functions import DrawSet
-import ffmpeg
+from kivy.config import Config
 import copy
 import random
 kivy.require("2.0.0")
 
 
 class Draw(Widget):
-	
+	Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
 	Width = 500  #Width of render window
 	Height =500  #Height of render window
 	ratio = float(Height/Width)
@@ -115,6 +115,8 @@ class Draw(Widget):
 			self.SaveImageBtn.bind(on_press = self.SaveImage)
 			self.ZoomVideoBtn.bind(on_press = self.ZoomVideo)
 			self.IterVideoBtn.bind(on_press = self.IterVideo)
+
+			 
 
 	
 	def on_touch_move(self, touch): #function that is called when you click and hold/move the mouse cursor, only when you are inside the rendering window
@@ -336,13 +338,23 @@ class Draw(Widget):
 			os.mkdir('C:\\Users\\{}\\Desktop\\Mandelbrot'.format(username))
 		try:
 			self.Fps = int(''.join(filter(str.isdigit, self.FpsBox.text)))
-			cmd = 'ffmpeg -framerate {} -i Video\\%d.png -c:v libx264 -crf 1 -pix_fmt yuv420p -framerate {} C:\\Users\\{}\\Desktop\\Mandelbrot\\Video{}.mp4'.format(self.Fps, self.Fps, username, random.randint(1, 9000))
-			sp.call(cmd,shell=True)
+			
+
+			out = cv2.VideoWriter('C:\\Users\\{}\\Desktop\\Mandelbrot\\Video{}.mp4'.format(username, random.randint(1,9999)), cv2.VideoWriter_fourcc(*'DIVX'), self.Fps, (self.SWidth, self.SHeight))
+
+			for filename in sorted((glob.glob('Video\\*.png')), key=lambda x: int((x[6:]).replace(".png",""))):
+				img = cv2.imread(filename)
+				out.write(img)
+
+			out.release()
 			files = glob.glob('Video\\*.png') 
 			for f in files:
 				os.remove(f)
 		except:
 			pass
+
+		
+		
 		
 	
 	def SaveImage(self, instance): #saves current Image
@@ -366,6 +378,7 @@ class Draw(Widget):
 			self.img.show()
 		except:
 			pass
+		
 
 	def ImageByte(self, instance, ImageByte): #used for saving images to memory buffer
 		self.Buffer = BytesIO(ImageByte)
